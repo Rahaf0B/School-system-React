@@ -1,26 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import HomeClass from './pages/Homepage';
+import SearchClass from './components/Searchbar';
+import Editclass from './pages/Editpage';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-function App() {
+class App extends React.Component {
+  obj = {};
+
+  value_input=null;
+  getData=(val:any)=>{
+    // debugger;
+   console.log("Sffzsfsf")
+    // do not forget to bind getData in constructor
+    console.log(val);
+    this.value_input=val;
+}
+  render(){
   return (
+    <Router>
+   
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        {/* <SearchClass sendData={this.getData} /> */}
+        {/* dataFromParent ={this.k}/> */}
+        <Routes>
+   <Route  path="/"  element={<HomeClass dataFromParent={this.value_input}/>}></Route>
+   <Route path="/Edit/:id" element={<Editclass />}></Route>
+     </Routes>
     </div>
+
+    </Router>
   );
+}
 }
 
 export default App;

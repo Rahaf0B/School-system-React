@@ -1,0 +1,61 @@
+import React from "react";
+import { useTable } from "react-table";
+import { useEffect } from "react";
+class SearchClass extends React.Component<any, any> {
+    constructor(props:any) {
+        super(props);
+        this.reset();
+      }
+    
+      reset() {
+        // Always set the initial state in its own function, so that
+        // you can trivially reset your components at any point.
+        this.state = {
+          inputValue: ''
+        };
+      }
+
+    render() {
+         
+        return (
+            <div className="container" >
+            <b className="b-search">
+            <h4 className="h4-input">Search the table by using any value:</h4>
+            <input
+            value={this.state.inputValue}
+              id="input-search"
+              type="text"
+              placeholder="Search here"
+              onKeyUp={this.handleKey.bind(this)}
+              onChange={evt => this.updateInputValue(evt)}
+            ></input>
+   
+          </b>
+          </div>
+            // <div>
+            //     Data from parent is:{this.props.dataFromParent}
+            // </div>
+        );
+    }
+    handleKey(e:any) {
+        if (e.key === "Enter") {
+          console.log("Enter key pressed");
+          console.log(this.state.inputValue);
+          this.props.sendData(this.state.inputValue)
+        }
+      }
+    updateInputValue=(evt:any)=> {
+      const val = evt.target.value;
+      // ...       
+      this.setState({
+        inputValue: val
+      });
+
+      console.log(val)
+    }
+
+
+}
+
+
+export default SearchClass;
