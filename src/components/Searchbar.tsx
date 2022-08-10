@@ -8,8 +8,6 @@ class SearchClass extends React.Component<any, any> {
       }
     
       reset() {
-        // Always set the initial state in its own function, so that
-        // you can trivially reset your components at any point.
         this.state = {
           inputValue: ''
         };
@@ -32,9 +30,6 @@ class SearchClass extends React.Component<any, any> {
    
           </b>
           </div>
-            // <div>
-            //     Data from parent is:{this.props.dataFromParent}
-            // </div>
         );
     }
     handleKey(e:any) {

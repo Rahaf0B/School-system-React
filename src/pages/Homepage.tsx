@@ -151,6 +151,9 @@ class HomeClass extends React.Component<any, any> {
             {this.renderTableData()}
           </tbody>
         </table>
+        <a href={"/AddNewStudent/"}>
+        <button  className="ta-button" type="button"> Add</button>
+        </a>
       </div>
     );
   }
