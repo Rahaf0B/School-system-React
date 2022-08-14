@@ -17,8 +17,8 @@ class SearchClass extends React.Component<any, any> {
          
         return (
             <div className="container" >
-            <b className="b-search">
-            <h4 className="h4-input">Search the table by using any value:</h4>
+            <div className="b-search">
+            <h4 className="h4-input">Search the table by using student name:</h4>
             <input
             value={this.state.inputValue}
               id="input-search"
@@ -28,7 +28,7 @@ class SearchClass extends React.Component<any, any> {
               onChange={evt => this.updateInputValue(evt)}
             ></input>
    
-          </b>
+          </div>
           </div>
         );
     }

@@ -1,21 +1,26 @@
 
 
 
-html,
+
 body {
-  height: 100%;
+margin: 0;
+  background-color: #8263abba;
+ 
+  font-family: system-ui;
+  
 }
-body {
+/* body {
   height: 394px;
   margin: 0;
   background: -webkit-linear-gradient(45deg, #49a09d, #5f2c82);
   background: linear-gradient(45deg, #49a09d, #5f2c82);
   font-family: sans-serif;
   font-weight: 100;
-}
+}  */
 
 .container {
-  margin: 4vw auto;
+  margin-bottom: 15px;
+  margin-top: 4vw;
   margin-left: auto;
   margin-right: auto;
   max-width: 1390px;
@@ -23,6 +28,7 @@ body {
 
 }
 table {
+  margin-bottom: 50px;
   text-align: center;
   border-radius: 27px;
   width: 100%;
@@ -35,6 +41,35 @@ td {
   padding: 15px;
   background-color: rgba(255, 255, 255, 0.2);
   color: wheat;
+ 
+}
+
+td{
+  font-weight: 500;
+}
+
+.div-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.div-add-btn{
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20px;
+  background-color: #55608f;
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  max-width: 306px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.h3-add-stu{
+  color: wheat;
+  font-family: system-ui;
 }
 
  th {
@@ -88,4 +123,137 @@ tbody td {
   border: none;
   height: 29px;
   background: wheat;
+}
+
+.site-header{
+  width: 100%;
+  background-color: #6a76aa;
+  margin-bottom: 100px;
+
+}
+.Header-div{
+  margin-left: auto;
+  margin-right: auto;
+
+  height: 65px;
+  align-items: center;
+
+  max-width: 1390px;
+
+}
+@media (max-width: 774px){
+  .SiteHedaer-div{
+  }
+}
+
+.SiteHedaer-div{
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-top: 19px;
+    float: right;
+}
+
+
+.img-school{
+  float: left;
+margin-left: 100px;
+  width:  60px;
+}
+
+.Link-to-Page {
+  
+  color: wheat;
+  text-decoration: underline;
+  text-decoration: none;
+}
+
+
+.Link-to-Page:hover {
+  color: black;
+}
+
+button{
+  cursor: pointer;
+}
+
+
+
+.div-edit{
+  gap: 30%;
+width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  /* align-content: flex-start; */
+  justify-content: space-evenly;
+ font-weight: 600;
+ padding-bottom: 71px;
+  padding-top: 71px;
+  color: wheat;
+}
+
+.div-add{
+
+
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  /* align-content: flex-start; */
+  justify-content: space-evenly;
+ font-weight: 600;
+ padding-bottom: 71px;
+  padding-top: 71px;
+  color: wheat;
+
+  margin-right: 50px;
+  margin-left: 50px;
+  gap:168px;
+}
+
+
+.add-div-page, .edit-div-page{
+  padding-top: 50px;
+  background-color: #6a76aa;
+  border-radius: 20px;
+  margin-right: 163px;
+  margin-left: 163px;
+}
+
+.add-div-page{
+  align-items: center;
+  align-content: center;
+}
+.div-heading{
+  text-align: center;
+  font-size: 24px;
+  color: wheat;
+  margin: 0 auto;
+
+}
+
+.div-input-add, .div-input-edit{
+
+  width: 163px;
+  margin-right: 20px;
+  margin-bottom: 36px;
+}
+
+.input-add, .input-edit{
+  border-radius: 10px;
+  height: 27px;
+  width: 249px;
+  outline: 0;
+}
+
+.studend-img{
+  height: 170px;
+  width: 300px;
+}
+
+.ta-button, .image{
+  height: 50px;
 }
