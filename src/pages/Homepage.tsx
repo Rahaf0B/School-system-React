@@ -1,33 +1,28 @@
 import React from "react";
 import { useTable } from "react-table";
-import { fetchData } from "../GetStrapiData/GetData";
 import { useEffect } from "react";
 import SearchClass from "../components/Searchbar";
-
-
+import { getData } from "../components/utils";
+import { deleteData } from "../components/utils";
 import {
   Button,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogContentText,
-  DialogActions
-} from '@mui/material'
+  DialogActions,
+} from "@mui/material";
 
+import { BooleanInput } from "react-admin";
 
-import { BooleanInput  } from 'react-admin';
-
-import { Fragment}  from 'react'
+import { Fragment } from "react";
 class HomeClass extends React.Component<any, any> {
- 
- 
   state = {
     data: [],
     error: null,
     value_input: null,
     StudentID: null,
-    isOpen:null,
-    
+    isOpen: null,
   };
 
   value_input = null;
@@ -36,52 +31,23 @@ class HomeClass extends React.Component<any, any> {
   };
 
   handleClickDelete = async (event, ID) => {
-    console.log(ID);
-    fetch(`http://localhost:1337/api/students/${ID}`, {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json",
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          console.log("HTTP request successful");
-        } else {
-          console.log("HTTP request unsuccessful");
-        }
-        return res;
-      })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((error) => this.setState({ error }));
+    deleteData(ID);
   };
 
   async componentDidMount() {
-    try {
-      const response = await fetch(
-        "http://localhost:1337/api/students?populate=*"
-      ); //
-      const data = await response.json();
-
-      this.setState({ data: data.data });
-      console.log("adadadadadadasdsssssssssssssssssssss");
-      console.log(data.data[0].id);
-
-      this.setState({ StudentID: data.data[0].id });
-    } catch (error) {
-      this.setState({ error });
-    }
+    const [studentData, studentId, error] = await getData();
+    this.setState({ data: studentData });
+    this.setState({ StudentID: studentId });
+    this.setState({ error: error });
   }
- closeModal=()=>{
-  this.setState({isOpen:false});
-      
-    }
-  
-   openModal=() =>{
-    
-   this.setState({isOpen:true});
-    }
-  
+  closeModal = () => {
+    this.setState({ isOpen: false });
+  };
+
+  openModal = () => {
+    this.setState({ isOpen: true });
+  };
+
   renderTableHeader() {
     const column = [
       {
@@ -91,15 +57,6 @@ class HomeClass extends React.Component<any, any> {
       },
     ];
     return this.state.data.slice(0, 1).map((data: any, index) => {
-      // console.log(Object.entries(data))
-
-      // let FindData=Object.values(data.attributes).filter(stu=>{
-      // if (this.value_input!==null){
-      //   return stu
-      // }
-
-      // })
-
       let keys_att = Object.keys(data?.attributes).filter(function (f) {
         return (
           f !== "createdAt" &&
@@ -162,7 +119,7 @@ class HomeClass extends React.Component<any, any> {
 
       var dataToDisplay = Object.values(data?.attributes);
 
-    let colData;
+      let colData;
       if (
         this.state.value_input == "" ||
         this.state.value_input == null ||
@@ -171,70 +128,57 @@ class HomeClass extends React.Component<any, any> {
         btn_hidden = true;
         for (let i = 0; i < keys_att.length; i++) {
           if (keys_att[i] == "st_image") {
-            console.log("dfghjkljhgfhjk",data?.attributes[keys_att[i]].data?.attributes?.url)
-            colData=data?.attributes[keys_att[i]].data?.attributes?.url
+           
+            colData = data?.attributes[keys_att[i]].data?.attributes?.url;
             dilogHidden = true;
           } else {
             dilogHidden = false;
-            colData=data?.attributes[keys_att[i]];
+            colData = data?.attributes[keys_att[i]];
           }
           row_data.push({
             key: keys_att[i],
-            display:  colData,
+            display: colData,
             isHidden: dilogHidden,
           });
         }
       }
-      console.log("444444444444444444444",row_data)
-      console.log("22222222222222222222222222",data?.attributes)
-
+      
       return (
         <tr key={keys_att[index]}>
           {row_data.map((cl) => (
             <td key={cl.key}>
-              
-
               {cl.isHidden ? (
                 <div>
-                  
-                <button className="ta-button image" onClick={this.openModal}>Show Image</button>
-               
-<Dialog open={this.state?.isOpen? true:false}
-onClose={this.closeModal}
-aria-labelledby='dialog-title'
-aria-describedby='dialog-description'>
+                  <button className="ta-button image" onClick={this.openModal}>
+                    Show Image
+                  </button>
 
-<DialogTitle id='dialog-title'>Student Image</DialogTitle>
-        <DialogContent>
-          <DialogContentText id='dialog-description'>
-          <img className="studend-img" src={`http://localhost:1337${cl.display}`}>
-          </img>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          
-          <Button onClick={this.closeModal} autoFocus>
-            Close
-          </Button>
-        </DialogActions>
-</Dialog>
-  </div>
-
-              ) : <div>
-       
-                {cl.display?.toString()}
-                
-             
+                  <Dialog
+                    open={this.state?.isOpen ? true : false}
+                    onClose={this.closeModal}
+                    aria-labelledby="dialog-title"
+                    aria-describedby="dialog-description"
+                  >
+                    <DialogTitle id="dialog-title">Student Image</DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="dialog-description">
+                        <img
+                          className="studend-img"
+                          src={`http://localhost:1337${cl.display}`}
+                        ></img>
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={this.closeModal} autoFocus>
+                        Close
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
                 </div>
-                }
-            
-            
+              ) : (
+                <div>{cl.display?.toString()}</div>
+              )}
             </td>
-
-
-
-
-
           ))}
           {btn_hidden ? (
             <td key={keys_att[index] + "td"}>
@@ -276,7 +220,7 @@ aria-describedby='dialog-description'>
           <h3 className="h3-add-stu">Add new student:</h3>
 
           <a href={"/AddNewStudent/"}>
-            <button className="ta-button" type="button">
+            <button className="ta-button" id="ta-button-add" type="button">
               Add
             </button>
           </a>

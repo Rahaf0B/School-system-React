@@ -257,3 +257,7 @@ width: 100%;
 .ta-button, .image{
   height: 50px;
 }
+
+#ta-button-add{
+  height: 35px !important;
+}
