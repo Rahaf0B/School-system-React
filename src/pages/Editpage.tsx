@@ -4,15 +4,18 @@ import { useTable } from "react-table";
 import axios from "axios";
 import { geInputPropsForTextField } from "../components/utils";
 import { getSingleData } from "../components/utils";
+import TextFiled from "../components/TextFiled";
+import { UpdatedData } from "../components/utils";
 class Editclass extends React.Component<any, any> {
   state = {
     data: null,
     error: null,
     validationError: [],
     stu_id: null,
-    message: [],
+    inputValues: {},
     numberofindex: null,
     keyOfData: [],
+    KeyOfValues: {},
     imageUpdate: null,
     file: null,
   };
@@ -20,14 +23,23 @@ class Editclass extends React.Component<any, any> {
     const linkId = window?.location?.href.split("/");
 
     const [response, error] = await getSingleData(linkId.at(-1));
-    console.log("88888888888888888888888888888");
+
     const newFill = Array(6).fill("");
     const newFill0 = Array(6).fill("");
     const newFill1 = Array(6).fill("");
     const key = ["st_name", "st_Email", "st_id"];
+    const valuesAndkeys = {
+      st_name: response.data.data.attributes.st_name,
+      st_Email: null,
+      st_id: response.data.data.attributes.st_id,
+      st_registerDate: null,
+      st_register: null,
+      st_avg: response.data.data.attributes.st_avg,
+    }; //,st_image:null
+
     this.setState({
+      inputValues: valuesAndkeys,
       data: response?.data?.data,
-      message: newFill,
       keyOfData: newFill0,
       validationError: newFill1,
       error: error,
@@ -35,14 +47,16 @@ class Editclass extends React.Component<any, any> {
     });
   };
 
-  handleChange = (event, indexItem) => {
-    const newMsd = this.state.message?.map((item, index) =>
-      index === indexItem ? event.target.value : item
-    );
-    console.log("5555555555555555555555555555555555555", event.target.value);
-    console.log({ newMsd });
+  handleChange = (event, indexItem, key) => {
+    const newValue = this.state.inputValues;
+    
+    newValue[key] = event.target.value;
+    this.setState({ inputValues: newValue });
 
-    this.setState({ message: newMsd });
+
+
+
+ 
   };
   ImageHandleClick = async (event) => {
     this.setState({ file: event.target.files[0] });
@@ -100,94 +114,41 @@ class Editclass extends React.Component<any, any> {
   handleClick = async (event) => {
     event.preventDefault();
 
-    let k = this.state.keyOfData[1];
-
-    if (
-      this.state.message.includes(undefined) ||
-      this.state.message.includes("")
-    ) {
-      alert("You must fill all the fields");
-    } else {
-      this.state.message?.map((dataput: any, index) => {
-        if (this.state.keyOfData[index] == null) {
-        }
-        const data = { data: { [this.state.keyOfData[index]]: dataput } };
-
-        fetch(`http://localhost:1337/api/students/${this.state.stu_id}`, {
-          method: "put", // or 'PUT'
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            ("");
-          })
-          .catch((error) => {
-            this.setState({ error: error });
-          });
-      });
-    }
+    UpdatedData(
+      this.state.keyOfData[1],
+      this.state.inputValues,
+      this.state.stu_id
+    );
     // this.updateImage();
   };
 
   renderInputEdit() {
-    /**  {
-       key: "",
-       display: "value",
-       canIdet: false,
-     }[]*/
     const row_data = [];
     let dataArrObj = [];
-
-    dataArrObj = Object.values(this.state.data ? this.state.data : [{}]);
-    dataArrObj = Object.entries(dataArrObj[1] ? dataArrObj[1] : [{}]);
-    debugger;
-    dataArrObj = dataArrObj?.filter(function ([key]) {
-      return (
-        key !== "createdAt" &&
-        key !== "updatedAt" &&
-        key !== "publishedAt" &&
-        key !== "locale" &&
-        key !== "localizations"
-      );
-    });
-
-    return dataArrObj?.map(([key, val]: any, index) => {
-      let CanIdetInput = false;
-      let dataToDisplay = this.state.message[index];
-      if (key === "st_id" || key === "st_name" || key === "st_avg") {
-        dataToDisplay = val;
-      }
-
-      console.log("00000000000000000000", dataToDisplay);
-
-      row_data.push({
-        key: key,
-        display: dataToDisplay,
-
-        canIdet: CanIdetInput,
+    dataArrObj = this.state.data ? this.state.data.attributes : [{}];
+    const InputValue = Object.entries(dataArrObj)
+      .filter(function ([key]) {
+        return (
+          key !== "createdAt" &&
+          key !== "updatedAt" &&
+          key !== "publishedAt" &&
+          key !== "locale" &&
+          key !== "localizations"
+        );
+      })
+      .map(([key, val], index) => {
+        return [key, val];
       });
-      console.log("111111111111111111111", row_data);
-      // this.state.keyOfData[index] = key;
-   
+
+    return InputValue.map(([key, val], index) => {
       return (
         <div key={index} className="div-input-edit">
-          <label htmlFor={row_data[index]?.key}>
-            {geInputPropsForTextField(key)?.name}
-          </label>
-          <input
-            className="input-edit"
-            id={row_data[index]?.key}
-            required={true}
-            // readOnly={geInputPropsForTextField(key)?.disabled}
-            type={geInputPropsForTextField(key)?.type}
-            key={index}
-            name={geInputPropsForTextField(key)?.name}
-            onChange={(e) => this.handleChange(e, index)}
-            value={row_data[index]?.display}
-            placeholder={geInputPropsForTextField(key)?.placeholder}
+          <TextFiled
+            keyData={index}
+            valueKey={key}
+            indexValue={index}
+            dataValue={this.state?.inputValues[key]}
+            handlerEvent={this.handleChange}
           />
           <div className="div-input-error">{this.state.validationError}</div>
         </div>
@@ -202,13 +163,12 @@ class Editclass extends React.Component<any, any> {
       <div className="edit-div-page">
         <h3 className="div-heading">Edit the student information</h3>
         <div className="div-edit">
-          {/* <br></br>
-        <br></br> */}
-          {this.renderInputEdit()}
-          <div>
+          <>{this.renderInputEdit()}</>
+          <div className="div-ImageForm">
             <form onSubmit={this.handlesubmit}>
               <input onChange={this.ImageHandleClick} type="file" />
-              {/* <BuildForm schema={},defultvalue,changes /> */}
+
+           
               <button>Submit</button>
             </form>
           </div>

@@ -39,39 +39,39 @@ class AddStudentPage extends React.Component {
     let datat;
     let k = {};
 
-   
-if (this.state.message.includes(undefined) || this.state.message.includes("") ){
-  alert("You must fill all the fields")
-}
-else{
-    this.state.message?.map((dataput: any, index) => {
-      datat = { data: { [this.state.keyOfData[index]]: dataput } };
+    if (
+      this.state.message.includes(undefined) ||
+      this.state.message.includes("")
+    ) {
+      alert("You must fill all the fields");
+    } else {
+      this.state.message?.map((dataput: any, index) => {
+        datat = { data: { [this.state.keyOfData[index]]: dataput } };
 
-      console.log(this.state.keyOfData[index]);
+        console.log(this.state.keyOfData[index]);
 
-      k = { ...k, [this.state.keyOfData[index]]: dataput };
-    });
+        k = { ...k, [this.state.keyOfData[index]]: dataput };
+      });
 
-    console.log("adADdDdad");
-    console.log(k);
+      console.log("adADdDdad");
+      console.log(k);
 
-    event.preventDefault();
-    fetch("http://localhost:1337/api/students", {
-      method: "POST", 
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ data: k }),
-    })
-      .then((res) => {
-        
-        return res;
+      event.preventDefault();
+      fetch("http://localhost:1337/api/students", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ data: k }),
       })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
-  
- } };
+        .then((res) => {
+          return res;
+        })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.log(error));
+    }
+  };
 
   InputField() {
     let keysVlaueOFStudentData = [
@@ -97,8 +97,11 @@ else{
             type={geInputPropsForTextField(keysVlaueOFStudentData[index])?.type}
             name={geInputPropsForTextField(keysVlaueOFStudentData[index])?.name}
             onChange={(e) => this.handleChange(e, index)}
-            placeholder={geInputPropsForTextField(keysVlaueOFStudentData[index])?.placeholder}
-            
+            placeholder={
+              geInputPropsForTextField(keysVlaueOFStudentData[index])
+                ?.placeholder
+            }
+
             // value={row_data[index].display}
           />
         </div>
@@ -109,10 +112,11 @@ else{
   render() {
     return (
       <div className="add-div-page">
-        <h3 className="div-heading">Edit the student information</h3>
+        <h3 className="div-heading">Add new student</h3>
         <div className="div-add">
           {this.InputField()}
-          <div>
+          </div>
+          <div className="div-butons">
             <button className="ta-button" onClick={this.handleClick}>
               Save
             </button>
@@ -122,7 +126,7 @@ else{
               </button>
             </a>
           </div>
-        </div>
+  
       </div>
     );
   }

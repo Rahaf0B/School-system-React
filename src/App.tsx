@@ -7,19 +7,15 @@ import SiteHeader from "./components/SiteHeader";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 class App extends React.Component {
- 
   render() {
     return (
       <Router>
         <div className="App">
-        <SiteHeader />
+          <SiteHeader />
           {/* <SearchClass sendData={this.getData} /> */}
           {/* dataFromParent ={this.k}/> */}
           <Routes>
-            <Route
-              path="/"
-              element={<HomeClass  />}
-            ></Route>
+            <Route path="/" element={<HomeClass />}></Route>
             <Route path="/Edit/:id" element={<Editclass />}></Route>
             <Route path="/AddNewStudent/" element={<AddStudentPage />}></Route>
           </Routes>

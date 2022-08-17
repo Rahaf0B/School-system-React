@@ -72,6 +72,8 @@ export const getData = async () => {
 };
 
 export const deleteData = async (ID) => {
+  let isError = null;
+
   fetch(`http://localhost:1337/api/students/${ID}`, {
     method: "DELETE",
     headers: {
@@ -88,7 +90,12 @@ export const deleteData = async (ID) => {
     })
     .then((res) => res.json())
     .then((data) => "")
-    .catch((error) => "");
+    .catch((error) => (isError = error));
+  if (isError) {
+    alert("there is an error occurred");
+  } else {
+    alert("The data has been deleted successful");
+  }
 };
 
 export const getSingleData = async (ID) => {
@@ -101,5 +108,32 @@ export const getSingleData = async (ID) => {
     return [response, null];
   } catch (error) {
     return [null, error];
+  }
+};
+
+export const UpdatedData = async (KeyOfData, InputVlaue, ID) => {
+  let k = KeyOfData;
+  if (Object.values(InputVlaue).includes(null)) {
+    alert("You must fill all the fields");
+  } else {
+    const data = { data: InputVlaue };
+
+    fetch(`http://localhost:1337/api/students/${ID}`, {
+      method: "put", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        ("");
+      })
+      .catch((error) => {
+        if (error) {
+          alert("there is an error acqure");
+        }
+      });
+    alert("The Data has been updated");
   }
 };

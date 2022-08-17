@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import SearchClass from "../components/Searchbar";
 import { getData } from "../components/utils";
 import { deleteData } from "../components/utils";
+
 import {
   Button,
   Dialog,
@@ -128,7 +129,6 @@ class HomeClass extends React.Component<any, any> {
         btn_hidden = true;
         for (let i = 0; i < keys_att.length; i++) {
           if (keys_att[i] == "st_image") {
-           
             colData = data?.attributes[keys_att[i]].data?.attributes?.url;
             dilogHidden = true;
           } else {
@@ -142,7 +142,7 @@ class HomeClass extends React.Component<any, any> {
           });
         }
       }
-      
+
       return (
         <tr key={keys_att[index]}>
           {row_data.map((cl) => (
