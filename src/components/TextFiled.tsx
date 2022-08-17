@@ -7,6 +7,7 @@ export type VarablesProps = {
   indexValue: any;
   dataValue: any;
   handlerEvent: any;
+  valueerror:any;
 };
 class TextFiled extends React.Component<VarablesProps> {
   // constructor(props){
@@ -20,6 +21,7 @@ class TextFiled extends React.Component<VarablesProps> {
     const { indexValue } = this.props;
     const { handlerEvent } = this.props;
     const { dataValue } = this.props;
+    const {valueerror}=this.props;
     // console.log(this.props.name)
     return (
       <div>
@@ -38,6 +40,9 @@ class TextFiled extends React.Component<VarablesProps> {
           value={dataValue}
           placeholder={geInputPropsForTextField(valueKey)?.placeholder}
         />
+        <div className="HelperText">
+          {valueerror}
+        </div>
       </div>
     );
   }

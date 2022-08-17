@@ -6,6 +6,8 @@ import { geInputPropsForTextField } from "../components/utils";
 import { getSingleData } from "../components/utils";
 import TextFiled from "../components/TextFiled";
 import { UpdatedData } from "../components/utils";
+import validator from "validator";
+
 class Editclass extends React.Component<any, any> {
   state = {
     data: null,
@@ -18,6 +20,7 @@ class Editclass extends React.Component<any, any> {
     KeyOfValues: {},
     imageUpdate: null,
     file: null,
+    erorrText: {},
   };
   componentDidMount = async () => {
     const linkId = window?.location?.href.split("/");
@@ -37,6 +40,14 @@ class Editclass extends React.Component<any, any> {
       st_avg: response.data.data.attributes.st_avg,
     }; //,st_image:null
 
+    const keyAndErrors = {
+      st_name: null,
+      st_Email: null,
+      st_id: null,
+      st_registerDate: null,
+      st_register: null,
+      st_avg: null,
+    };
     this.setState({
       inputValues: valuesAndkeys,
       data: response?.data?.data,
@@ -49,14 +60,43 @@ class Editclass extends React.Component<any, any> {
 
   handleChange = (event, indexItem, key) => {
     const newValue = this.state.inputValues;
-    
+
     newValue[key] = event.target.value;
     this.setState({ inputValues: newValue });
+    const errorMassage = this.state.erorrText;
+    if (event.target.value==""){
+      errorMassage[key]="You should enter a value"
+    }
+    else{
+    if (key == "st_Email") {
+      if (!/\S+@\S+\.\S+/.test(event.target.value)) {
+        errorMassage[key] = "Wrong Email";
+      } else {
+        errorMassage[key] = "";
+      }
+    } else if (key == "st_registerDate") {
+      if (!validator.isDate(event.target.value)) {
+        errorMassage[key] = "wrong Date";
+      } else {
+        errorMassage[key] = "";
+      }
+    } 
+    else if(key=="st_register"){
+      if (event.target.value!=="true" && event.target.value!=="false"){
 
+        errorMassage[key] = "wrong input";
+      } else {
+        errorMassage[key] = "";
+      }
+    }
+    
+    else {
+      errorMassage[key] = "";
+    }
 
+  }
 
-
- 
+    this.setState({ erorrText: errorMassage});
   };
   ImageHandleClick = async (event) => {
     this.setState({ file: event.target.files[0] });
@@ -84,8 +124,6 @@ class Editclass extends React.Component<any, any> {
     imageAttributes["id"] = idStudent;
 
     this.setState({ imageUpdate: imageAttributes });
-
-    //  const transformed = y.map(({ 0 }) => ({ label: 0, value: name }));
   };
 
   updateImage() {
@@ -123,7 +161,6 @@ class Editclass extends React.Component<any, any> {
   };
 
   renderInputEdit() {
-    const row_data = [];
     let dataArrObj = [];
     dataArrObj = this.state.data ? this.state.data.attributes : [{}];
     const InputValue = Object.entries(dataArrObj)
@@ -149,8 +186,9 @@ class Editclass extends React.Component<any, any> {
             indexValue={index}
             dataValue={this.state?.inputValues[key]}
             handlerEvent={this.handleChange}
+            valueerror={this.state?.erorrText[key]}
           />
-          <div className="div-input-error">{this.state.validationError}</div>
+          <div className="HelperText">{this.state.validationError}</div>
         </div>
       );
     });
@@ -168,7 +206,6 @@ class Editclass extends React.Component<any, any> {
             <form onSubmit={this.handlesubmit}>
               <input onChange={this.ImageHandleClick} type="file" />
 
-           
               <button>Submit</button>
             </form>
           </div>

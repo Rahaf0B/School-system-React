@@ -1,6 +1,6 @@
 import { keyboard } from "@testing-library/user-event/dist/keyboard";
 import React from "react";
-
+import TextFiled from "../components/TextFiled";
 import { geInputPropsForTextField } from "../components/utils";
 
 class AddStudentPage extends React.Component {
@@ -37,7 +37,7 @@ class AddStudentPage extends React.Component {
 
   handleClick = async (event) => {
     let datat;
-    let k = {};
+    let DataToAdd = {};
 
     if (
       this.state.message.includes(undefined) ||
@@ -50,11 +50,8 @@ class AddStudentPage extends React.Component {
 
         console.log(this.state.keyOfData[index]);
 
-        k = { ...k, [this.state.keyOfData[index]]: dataput };
+        DataToAdd = { ...DataToAdd, [this.state.keyOfData[index]]: dataput };
       });
-
-      console.log("adADdDdad");
-      console.log(k);
 
       event.preventDefault();
       fetch("http://localhost:1337/api/students", {
@@ -62,7 +59,7 @@ class AddStudentPage extends React.Component {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ data: k }),
+        body: JSON.stringify({ data: DataToAdd }),
       })
         .then((res) => {
           return res;
@@ -89,7 +86,6 @@ class AddStudentPage extends React.Component {
           <label htmlFor={keysVlaueOFStudentData[index]}>
             {keysVlaueOFStudentData[index].split("_")[1].toUpperCase()}
           </label>
-
           <input
             className="input-add"
             id={keysVlaueOFStudentData[index]}
@@ -113,20 +109,17 @@ class AddStudentPage extends React.Component {
     return (
       <div className="add-div-page">
         <h3 className="div-heading">Add new student</h3>
-        <div className="div-add">
-          {this.InputField()}
-          </div>
-          <div className="div-butons">
-            <button className="ta-button" onClick={this.handleClick}>
-              Save
+        <div className="div-add">{this.InputField()}</div>
+        <div className="div-butons">
+          <button className="ta-button" onClick={this.handleClick}>
+            Save
+          </button>
+          <a href={"/"}>
+            <button className="ta-button" type="button">
+              Back
             </button>
-            <a href={"/"}>
-              <button className="ta-button" type="button">
-                Back
-              </button>
-            </a>
-          </div>
-  
+          </a>
+        </div>
       </div>
     );
   }

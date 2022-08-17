@@ -17,6 +17,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-table": "^7.7.12",
     "axios": "^0.27.2",
+    "class-validator": "^0.13.2",
     "headlessui": "^0.0.0",
     "react": "^18.2.0",
     "react-admin": "^4.2.7",
@@ -53,6 +54,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.3.3"
+    "@types/react-router-dom": "^5.3.3",
+    "validator": "^13.7.0"
   }
 }

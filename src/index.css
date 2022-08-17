@@ -4,6 +4,10 @@ body {
 
   font-family: system-ui;
 }
+
+.App{
+  width: fit-content;
+}
 /* body {
   height: 394px;
   margin: 0;
@@ -140,6 +144,7 @@ tbody td {
 }
 
 .SiteHedaer-div {
+  margin-right: 21px;
   display: flex;
   gap: 50px;
   align-items: center;
@@ -264,4 +269,11 @@ button {
 
 #ta-button-add {
   height: 35px !important;
+}
+
+
+.HelperText{
+color: rgb(166, 7, 7);
+font-size: 11px;
+margin-left: 3px;
 }
