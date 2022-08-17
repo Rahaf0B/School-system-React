@@ -22,7 +22,7 @@ class TextFiled extends React.Component<VarablesProps> {
     const { handlerEvent } = this.props;
     const { dataValue } = this.props;
     const {valueerror}=this.props;
-    // console.log(this.props.name)
+   
     return (
       <div>
         <label htmlFor={keyData}>

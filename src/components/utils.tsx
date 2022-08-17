@@ -63,8 +63,7 @@ export const getData = async () => {
     ); //
     const data = await response.json();
 
-    console.log("adadadadadadasdsssssssssssssssssssss");
-    console.log(data.data[0].id);
+ 
     return [data.data, data.data[0].id, null];
   } catch (error) {
     return [null, null, error];

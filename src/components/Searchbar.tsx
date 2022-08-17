@@ -34,19 +34,17 @@ class SearchClass extends React.Component<any, any> {
     }
     handleKey(e:any) {
         if (e.key === "Enter") {
-          console.log("Enter key pressed");
-          console.log(this.state.inputValue);
           this.props.sendData(this.state.inputValue)
         }
       }
     updateInputValue=(evt:any)=> {
       const val = evt.target.value;
-      // ...       
+  
       this.setState({
         inputValue: val
       });
 
-      console.log(val)
+   
     }
 
 

@@ -30,9 +30,8 @@ class AddStudentPage extends React.Component {
     const newMsd = this.state.message?.map((item, index) =>
       index === indexItem ? event.target.value : item
     );
-    console.log({ newMsd });
+
     this.setState({ message: newMsd });
-    console.log("value........", event.target.value);
   };
 
   handleClick = async (event) => {
@@ -47,8 +46,6 @@ class AddStudentPage extends React.Component {
     } else {
       this.state.message?.map((dataput: any, index) => {
         dataToAdd = { data: { [this.state.keyOfData[index]]: dataput } };
-
-        console.log(this.state.keyOfData[index]);
 
         DataToAdd = { ...DataToAdd, [this.state.keyOfData[index]]: dataput };
       });
@@ -65,8 +62,8 @@ class AddStudentPage extends React.Component {
           return res;
         })
         .then((res) => res.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.log(error));
+        .then((data) => "")
+        .catch((error) => "");
     }
   };
 

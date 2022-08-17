@@ -24,6 +24,10 @@ class HomeClass extends React.Component<any, any> {
     value_input: null,
     StudentID: null,
     isOpen: null,
+    startNumberOfItems:0,
+    endNumberofItem:5,
+    numberOfItemsPerPage:5,
+    countOfData:0,
   };
 
   value_input = null;
@@ -40,6 +44,9 @@ class HomeClass extends React.Component<any, any> {
     this.setState({ data: studentData });
     this.setState({ StudentID: studentId });
     this.setState({ error: error });
+    const  lengthOfData=studentData.length;
+    this.setState({countOfData:lengthOfData});
+   
   }
   closeModal = () => {
     this.setState({ isOpen: false });
@@ -89,7 +96,23 @@ class HomeClass extends React.Component<any, any> {
       );
     });
   }
+  handleNextClick = ()=>{
 
+    const count=this.state.startNumberOfItems+this.state.endNumberofItem;
+   const countNextItem=(this.state.endNumberofItem)*2;//this.state.numberOfItemsPerPage*2;
+
+ 
+   if(this.state.endNumberofItem<this.state.countOfData){
+   this.setState({startNumberOfItems:count});
+    this.setState({endNumberofItem:countNextItem});}
+  }
+  handleBackClick = ()=>{
+    const count=this.state.startNumberOfItems-this.state.numberOfItemsPerPage;
+   const countNextItem=this.state.endNumberofItem/2;
+   if (this.state.startNumberOfItems>0){
+    this.setState({startNumberOfItems:count});
+    this.setState({endNumberofItem:countNextItem});
+  }}
   renderTableData() {
     const row_data = [
       {
@@ -99,7 +122,7 @@ class HomeClass extends React.Component<any, any> {
       },
     ];
 
-    return this.state.data.map((data: any, index) => {
+    return this.state.data.slice(this.state.startNumberOfItems, this.state.endNumberofItem).map((data: any, index) => {
       let btn_hidden = false;
       let dilogHidden = true;
       row_data.length = 0;
@@ -130,7 +153,7 @@ class HomeClass extends React.Component<any, any> {
         for (let i = 0; i < keys_att.length; i++) {
           if (keys_att[i] == "st_image") {
             colData = data?.attributes[keys_att[i]].data?.attributes?.url;
-            console.log("ooooooooooooooooooooo",colData)
+          
             dilogHidden = true;
           } else {
             dilogHidden = false;
@@ -226,14 +249,24 @@ class HomeClass extends React.Component<any, any> {
               Add
             </button>
           </a>
+      
         </div>
         <table className="table table-sm">
           <tbody id="t-body">
             {this.renderTableHeader()}
 
             {this.renderTableData()}
+           
           </tbody>
         </table>
+        <div className="div-Paging-table">
+        <button className="ta-button" id="ta-button-add" type="button"  onClick={this.handleBackClick}>
+             Back
+            </button>
+            <button className="ta-button" id="ta-button-add" type="button"  onClick={this.handleNextClick}>
+             Next 
+            </button>        
+            </div>
       </div>
     );
   }
