@@ -36,7 +36,7 @@ class AddStudentPage extends React.Component {
   };
 
   handleClick = async (event) => {
-    let datat;
+    let dataToAdd;
     let DataToAdd = {};
 
     if (
@@ -46,7 +46,7 @@ class AddStudentPage extends React.Component {
       alert("You must fill all the fields");
     } else {
       this.state.message?.map((dataput: any, index) => {
-        datat = { data: { [this.state.keyOfData[index]]: dataput } };
+        dataToAdd = { data: { [this.state.keyOfData[index]]: dataput } };
 
         console.log(this.state.keyOfData[index]);
 

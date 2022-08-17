@@ -130,6 +130,7 @@ class HomeClass extends React.Component<any, any> {
         for (let i = 0; i < keys_att.length; i++) {
           if (keys_att[i] == "st_image") {
             colData = data?.attributes[keys_att[i]].data?.attributes?.url;
+            console.log("ooooooooooooooooooooo",colData)
             dilogHidden = true;
           } else {
             dilogHidden = false;
@@ -140,6 +141,7 @@ class HomeClass extends React.Component<any, any> {
             display: colData,
             isHidden: dilogHidden,
           });
+         
         }
       }
 

@@ -127,17 +127,17 @@ class Editclass extends React.Component<any, any> {
   };
 
   updateImage() {
-    const l = this.state.imageUpdate;
-    let t = { data: l };
+    const imageData= this.state.imageUpdate;
+    let imageUpdate = { data: imageData };
 
     fetch(
-      `http://localhost:1337/api/students/${this.state.stu_id}?populate=*`,
+      `http://localhost:1337/api/students/${this.state?.stu_id}?populate=*`,
       {
         method: "put",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(t),
+        body: JSON.stringify(imageUpdate),
       }
     )
       .then((response) => response.json())
