@@ -140,11 +140,18 @@ tbody td {
   max-width: 1390px;
 }
 @media (max-width: 774px) {
-  .SiteHedaer-div {
+  .SiteHeader-div {
   }
 }
 
-.SiteHedaer-div {
+@media (max-width: 884px) {
+.site-header{
+  width: 869px !important;
+}
+}
+
+
+.SiteHeader-div {
   margin-right: 21px;
   display: flex;
   gap: 50px;
@@ -211,7 +218,7 @@ button {
   margin-left: 50px;
   gap: 50px;
 }
-.div-butons{
+.div-buttons{
   width: fit-content;
   margin-left: auto;
   margin-right: auto;

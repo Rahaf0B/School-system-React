@@ -1,28 +1,22 @@
 import React from "react";
 import { geInputPropsForTextField } from "../components/utils";
 
-export type VarablesProps = {
+export type variablesProps = {
   keyData: any;
   valueKey: any;
   indexValue: any;
   dataValue: any;
   handlerEvent: any;
-  valueerror:any;
+  valueOfError:any;
 };
-class TextFiled extends React.Component<VarablesProps> {
-  // constructor(props){
-  //     super(props)
-  //      name:null
-  // }
-
+class TextFiled extends React.Component<variablesProps> {
   render() {
     const { keyData } = this.props;
     const { valueKey } = this.props;
     const { indexValue } = this.props;
     const { handlerEvent } = this.props;
     const { dataValue } = this.props;
-    const {valueerror}=this.props;
-   
+    const {valueOfError}=this.props;
     return (
       <div>
         <label htmlFor={keyData}>
@@ -41,7 +35,7 @@ class TextFiled extends React.Component<VarablesProps> {
           placeholder={geInputPropsForTextField(valueKey)?.placeholder}
         />
         <div className="HelperText">
-          {valueerror}
+          {valueOfError}
         </div>
       </div>
     );

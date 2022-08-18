@@ -1,74 +1,90 @@
-import { keyboard } from "@testing-library/user-event/dist/keyboard";
 import React from "react";
 import TextFiled from "../components/TextFiled";
 import { geInputPropsForTextField } from "../components/utils";
+import validator from "validator";
+import { AddData } from "../components/utils";
 
 class AddStudentPage extends React.Component {
   state = {
-    message: [],
-    keyOfData: [],
+    inputValues: {},
+    errorTextValue: {},
   };
 
   componentDidMount = async () => {
     const newFill = Array(6).fill("");
-    const newFill0 = Array(6).fill("");
-    let keysVlaueOFStudentData = [
-      "st_name",
-      "st_Email",
-      "st_id",
-      "st_avg",
-      "st_register_date",
-      "st_register",
-    ];
+    const KeysAndValues = {
+      st_name: null,
+      st_Email: null,
+      st_id: null,
+      st_registerDate: null,
+      st_register: null,
+      st_avg: null,
+    }; //,st_image:null
     this.setState({
-      message: newFill,
-      keyOfData: keysVlaueOFStudentData,
+      inputValues: KeysAndValues,
     });
   };
 
-  handleChange = (event, indexItem) => {
-    const newMsd = this.state.message?.map((item, index) =>
-      index === indexItem ? event.target.value : item
-    );
-
-    this.setState({ message: newMsd });
+  handleChange = (event, indexItem, key) => {
+    const newValue = this.state.inputValues;
+    const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    newValue[key] = event.target.value;
+    this.setState({ inputValues: newValue });
+    const errorMassage = this.state.errorTextValue;
+    if (event.target.value === "") {
+      errorMassage[key] = "You should enter a value";
+    } else {
+      if (key === "st_name") {
+        if (/\d/.test(event.target.value)) {
+          errorMassage[key] = "the name should not contain any numbers";
+        } else if (specialChars.test(event.target.value)) {
+          errorMassage[key] =
+            "the name should not contain any special characters";
+        } else {
+          errorMassage[key] = "";
+        }
+      } else if (key === "st_Email") {
+        if (!/\S+@\S+\.\S+/.test(event.target.value)) {
+          errorMassage[key] = "Wrong Email";
+        } else {
+          errorMassage[key] = "";
+        }
+      } else if (key === "st_registerDate") {
+        if (!validator.isDate(event.target.value)) {
+          errorMassage[key] = "wrong Date";
+        } else {
+          errorMassage[key] = "";
+        }
+      } else if (key === "st_register") {
+        if (
+          event.target.value.toLowerCase() !== "yes" &&
+          event.target.value.toLowerCase() !== "no"
+        ) {
+          errorMassage[key] = "wrong input";
+        } else {
+          errorMassage[key] = "";
+          event.target.value = event.target.value
+            .toLowerCase()
+            .replace("yes", "true");
+          event.target.value = event.target.value
+            .toLowerCase()
+            .replace("no", "false");
+          newValue[key] = event.target.value;
+          this.setState({ inputValues: newValue });
+        }
+      } else {
+        errorMassage[key] = "";
+      }
+    }
+    this.setState({ errorTextValue: errorMassage });
   };
 
   handleClick = async (event) => {
-    let dataToAdd;
-    let DataToAdd = {};
-
-    if (
-      this.state.message.includes(undefined) ||
-      this.state.message.includes("")
-    ) {
-      alert("You must fill all the fields");
-    } else {
-      this.state.message?.map((dataput: any, index) => {
-        dataToAdd = { data: { [this.state.keyOfData[index]]: dataput } };
-
-        DataToAdd = { ...DataToAdd, [this.state.keyOfData[index]]: dataput };
-      });
-
-      event.preventDefault();
-      fetch("http://localhost:1337/api/students", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({ data: DataToAdd }),
-      })
-        .then((res) => {
-          return res;
-        })
-        .then((res) => res.json())
-        .then((data) => "")
-        .catch((error) => "");
-    }
+    AddData(event, this.state.inputValues);
   };
 
   InputField() {
-    let keysVlaueOFStudentData = [
+    let keysAndValueOFStudentData = [
       "st_name",
       "st_Email",
       "st_id",
@@ -76,38 +92,40 @@ class AddStudentPage extends React.Component {
       "st_registerDate",
       "st_register",
     ];
-
-    return keysVlaueOFStudentData.map((data: any, index) => {
+    return keysAndValueOFStudentData.map((key: any, index) => {
       return (
         <div key={index} className="div-input-add">
-          <label htmlFor={keysVlaueOFStudentData[index]}>
-            {keysVlaueOFStudentData[index].split("_")[1].toUpperCase()}
+          <label htmlFor={keysAndValueOFStudentData[index]}>
+            {keysAndValueOFStudentData[index].split("_")[1].toUpperCase()}
           </label>
           <input
             className="input-add"
-            id={keysVlaueOFStudentData[index]}
+            id={keysAndValueOFStudentData[index]}
             required
-            type={geInputPropsForTextField(keysVlaueOFStudentData[index])?.type}
-            name={geInputPropsForTextField(keysVlaueOFStudentData[index])?.name}
-            onChange={(e) => this.handleChange(e, index)}
+            type={
+              geInputPropsForTextField(keysAndValueOFStudentData[index])?.type
+            }
+            name={
+              geInputPropsForTextField(keysAndValueOFStudentData[index])?.name
+            }
+            onChange={(e) => this.handleChange(e, index, key)}
             placeholder={
-              geInputPropsForTextField(keysVlaueOFStudentData[index])
+              geInputPropsForTextField(keysAndValueOFStudentData[index])
                 ?.placeholder
             }
-
             // value={row_data[index].display}
           />
+          <div className="HelperText">{this.state?.errorTextValue[key]}</div>
         </div>
       );
     });
   }
-
   render() {
     return (
       <div className="add-div-page">
         <h3 className="div-heading">Add new student</h3>
         <div className="div-add">{this.InputField()}</div>
-        <div className="div-butons">
+        <div className="div-buttons">
           <button className="ta-button" onClick={this.handleClick}>
             Save
           </button>

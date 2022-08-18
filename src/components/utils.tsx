@@ -38,15 +38,13 @@ export const geInputPropsForTextField = (name) => {
         name: name.split("_")[1].toUpperCase(),
         placeholder: "ex:YY-MM-DD",
       };
-
     case "st_register":
       return {
         disabled: false,
         type: "text",
         name: name.split("_")[1].toUpperCase(),
-        placeholder: "ex:true/false",
+        placeholder: "ex:yes/no",
       };
-
     default:
       return {
         disabled: false,
@@ -62,8 +60,6 @@ export const getData = async () => {
       "http://localhost:1337/api/students?populate=*"
     ); //
     const data = await response.json();
-
- 
     return [data.data, data.data[0].id, null];
   } catch (error) {
     return [null, null, error];
@@ -98,7 +94,6 @@ export const deleteData = async (ID) => {
 };
 
 export const getSingleData = async (ID) => {
-  const linkId = window?.location?.href.split("/");
   try {
     const response = await axios.get(
       `http://localhost:1337/api/students/${ID}` //?populate=*
@@ -110,13 +105,11 @@ export const getSingleData = async (ID) => {
   }
 };
 
-export const UpdatedData = async (KeyOfData, InputVlaue, ID) => {
-  let k = KeyOfData;
-  if (Object.values(InputVlaue).includes(null)) {
+export const UpdatedData = async (KeyOfData, inputValue, ID) => {
+  if (Object.values(inputValue).includes(null)) {
     alert("You must fill all the fields");
   } else {
-    const data = { data: InputVlaue };
-
+    const data = { data: inputValue };
     fetch(`http://localhost:1337/api/students/${ID}`, {
       method: "put", // or 'PUT'
       headers: {
@@ -130,9 +123,37 @@ export const UpdatedData = async (KeyOfData, InputVlaue, ID) => {
       })
       .catch((error) => {
         if (error) {
-          alert("there is an error acqure");
+          alert("there is an error occurred");
         }
       });
     alert("The Data has been updated");
   }
 };
+
+
+
+export const AddData = async (event,inputValues)=>{
+  if (Object.values(inputValues).includes(null)) {
+    alert("You must fill all the fields");
+  } else {
+    event.preventDefault();
+    fetch("http://localhost:1337/api/students", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ data: inputValues }),
+    })
+      .then((res) => {
+        return res;
+      })
+      .then((res) => res.json())
+      .then((data) => "")
+      .catch((error) => alert("there is an error occurred"));
+  }
+  alert("The Data has been added");
+
+
+
+
+}

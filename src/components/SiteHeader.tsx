@@ -8,11 +8,10 @@ class SiteHeader extends React.Component {
         <div className="Header-div">
           <SchoolIcon />
           {/* <img className="img-school" src={} alt="school"></img> */}
-          <div className="SiteHedaer-div">
+          <div className="SiteHeader-div">
             <Link className="Link-to-Page" to="/">
               <div> Home Page</div>
             </Link>
-
             <Link className="Link-to-Page" to="/AddNewStudent/">
               {" "}
               <div>Add new student</div>

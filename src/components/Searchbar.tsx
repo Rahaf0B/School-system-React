@@ -1,20 +1,15 @@
 import React from "react";
-import { useTable } from "react-table";
-import { useEffect } from "react";
-class SearchClass extends React.Component<any, any> {
+class SearchBar extends React.Component<any, any> {
     constructor(props:any) {
         super(props);
         this.reset();
       }
-    
       reset() {
         this.state = {
           inputValue: ''
         };
       }
-
     render() {
-         
         return (
             <div className="container" >
             <div className="b-search">
@@ -27,7 +22,6 @@ class SearchClass extends React.Component<any, any> {
               onKeyUp={this.handleKey.bind(this)}
               onChange={evt => this.updateInputValue(evt)}
             ></input>
-   
           </div>
           </div>
         );
@@ -38,17 +32,13 @@ class SearchClass extends React.Component<any, any> {
         }
       }
     updateInputValue=(evt:any)=> {
-      const val = evt.target.value;
+      const value = evt.target.value;
   
       this.setState({
-        inputValue: val
+        inputValue: value
       });
-
-   
     }
-
-
 }
 
 
-export default SearchClass;
+export default SearchBar;
