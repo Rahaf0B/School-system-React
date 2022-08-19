@@ -1,5 +1,5 @@
 import React from "react";
-import { geInputPropsForTextField } from "../components/utils";
+import { getInputPropsForTextField } from "../components/utils";
 
 export type variablesProps = {
   keyData: any;
@@ -20,19 +20,19 @@ class TextFiled extends React.Component<variablesProps> {
     return (
       <div>
         <label htmlFor={keyData}>
-          {geInputPropsForTextField(valueKey)?.name}
+          {getInputPropsForTextField(valueKey)?.name}
         </label>
         <input
           className="input-edit"
           id={keyData}
           required={true}
-          readOnly={geInputPropsForTextField(valueKey)?.disabled}
-          type={geInputPropsForTextField(valueKey)?.type}
+          readOnly={getInputPropsForTextField(valueKey)?.disabled}
+          type={getInputPropsForTextField(valueKey)?.type}
           key={indexValue}
-          name={geInputPropsForTextField(valueKey)?.name}
+          name={getInputPropsForTextField(valueKey)?.name}
           onChange={(e) => handlerEvent(e, indexValue, valueKey)}
           value={dataValue}
-          placeholder={geInputPropsForTextField(valueKey)?.placeholder}
+          placeholder={getInputPropsForTextField(valueKey)?.placeholder}
         />
         <div className="HelperText">
           {valueOfError}

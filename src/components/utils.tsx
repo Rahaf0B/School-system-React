@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const geInputPropsForTextField = (name) => {
+export const getInputPropsForTextField = (name) => {
   switch (name) {
     case "st_id":
       return {
@@ -45,6 +45,28 @@ export const geInputPropsForTextField = (name) => {
         name: name.split("_")[1].toUpperCase(),
         placeholder: "ex:yes/no",
       };
+    case "First Mark":
+      return {
+        id: "FirstMark",
+        name,
+        placeholder: name,
+        type: "number",
+      };
+    case "Second Mark":
+      return {
+        id: "SecondMark",
+        name,
+        placeholder: name,
+        type: "number",
+      };
+    case "Third Mark":
+      return {
+        id: "ThirdMark",
+        name,
+        placeholder: name,
+        type: "number",
+      };
+
     default:
       return {
         disabled: false,
@@ -105,7 +127,7 @@ export const getSingleData = async (ID) => {
   }
 };
 
-export const UpdatedData = async (KeyOfData, inputValue, ID) => {
+export const UpdatedData = async ( inputValue, ID) => {
   if (Object.values(inputValue).includes(null)) {
     alert("You must fill all the fields");
   } else {
@@ -130,9 +152,8 @@ export const UpdatedData = async (KeyOfData, inputValue, ID) => {
   }
 };
 
+export const AddData = async (event, inputValues) => {
 
-
-export const AddData = async (event,inputValues)=>{
   if (Object.values(inputValues).includes(null)) {
     alert("You must fill all the fields");
   } else {
@@ -152,8 +173,15 @@ export const AddData = async (event,inputValues)=>{
       .catch((error) => alert("there is an error occurred"));
   }
   alert("The Data has been added");
+};
 
 
 
-
+export const calculateMarksAverage =(Marks)=>{
+  let value=0;
+  Object.values(Marks).map((val:number) => {
+        value=Number(val)+value;
+    });
+    const average=value/Object.keys(Marks).length
+    return average;
 }

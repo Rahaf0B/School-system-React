@@ -45,45 +45,48 @@ class EditPage extends React.Component<any, any> {
     newValue[key] = event.target.value;
     this.setState({ inputValues: newValue });
     const errorMassage = this.state.errorTextValue;
-    if (event.target.value===""){
-      errorMassage[key]="You should enter a value"
-    }
-    else{
-    if (key === "st_Email") {
-      if (!/\S+@\S+\.\S+/.test(event.target.value)) {
-        errorMassage[key] = "Wrong Email";
+    if (event.target.value === "") {
+      errorMassage[key] = "You should enter a value";
+    } else {
+      if (key === "st_Email") {
+        if (!/\S+@\S+\.\S+/.test(event.target.value)) {
+          errorMassage[key] = "Wrong Email";
+        } else {
+          errorMassage[key] = "";
+        }
+      } else if (key === "st_registerDate") {
+        if (!validator.isDate(event.target.value)) {
+          errorMassage[key] = "wrong Date";
+        } else {
+          errorMassage[key] = "";
+        }
+      } else if (key === "st_register") {
+        if (
+          event.target.value.toLowerCase() !== "yes" &&
+          event.target.value.toLowerCase() !== "no"
+        ) {
+          errorMassage[key] = "wrong input";
+        } else {
+          errorMassage[key] = "";
+          event.target.value = event.target.value
+            .toLowerCase()
+            .replace("yes", "true");
+          event.target.value = event.target.value
+            .toLowerCase()
+            .replace("no", "false");
+          newValue[key] = event.target.value;
+          this.setState({ inputValues: newValue });
+        }
       } else {
         errorMassage[key] = "";
       }
-    } else if (key === "st_registerDate") {
-      if (!validator.isDate(event.target.value)) {
-        errorMassage[key] = "wrong Date";
-      } else {
-        errorMassage[key] = "";
-      }
-    } 
-    else if(key==="st_register"){
-      if (event.target.value.toLowerCase()!=="yes" && event.target.value.toLowerCase()!=="no"){
-        errorMassage[key] = "wrong input";
-      } else {
-        errorMassage[key] = "";
-        event.target.value=event.target.value.toLowerCase().replace("yes","true");
-        event.target.value=event.target.value.toLowerCase().replace("no","false");
-        newValue[key] = event.target.value;
-        this.setState({ inputValues: newValue });
-      }
     }
-    else {
-      errorMassage[key] = "";
-    }
-  }
-    this.setState({ errorTextValue: errorMassage});
+    this.setState({ errorTextValue: errorMassage });
   };
-  
+
   ImageHandleClick = async (event) => {
     this.setState({ file: event.target.files[0] });
   };
-
 
   handleSubmit = async (event) => {
     event.preventDefault();
@@ -105,7 +108,7 @@ class EditPage extends React.Component<any, any> {
   };
 
   updateImage() {
-    const imageData= this.state.imageUpdate;
+    const imageData = this.state.imageUpdate;
     let imageUpdate = { data: imageData };
     fetch(
       `http://localhost:1337/api/students/${this.state?.stu_id}?populate=*`,
@@ -128,11 +131,7 @@ class EditPage extends React.Component<any, any> {
 
   handleClick = async (event) => {
     event.preventDefault();
-    UpdatedData(
-      this.state.keyOfData[1],
-      this.state.inputValues,
-      this.state.stu_id
-    );
+    UpdatedData(this.state.inputValues, this.state.stu_id);
     // this.updateImage();
   };
 
@@ -146,13 +145,14 @@ class EditPage extends React.Component<any, any> {
           key !== "updatedAt" &&
           key !== "publishedAt" &&
           key !== "locale" &&
-          key !== "localizations"
+          key !== "localizations" &&
+          key !== "st_avg"
         );
       })
       .map(([key, val], index) => {
         return [key, val];
       });
-  return InputValue.map(([key, val], index) => {
+    return InputValue.map(([key, val], index) => {
       return (
         <div key={index} className="div-input-edit">
           <TextFiled
@@ -172,18 +172,27 @@ class EditPage extends React.Component<any, any> {
     if (this.state.error) {
       return <div>{this.state.error}</div>;
     }
+
     return (
       <div className="edit-div-page">
         <h3 className="div-heading">Edit the student information</h3>
-        <div className="div-edit">
-          <>{this.renderInputEdit()}</>
-          <div className="div-ImageForm">
-            <form onSubmit={this.handleSubmit}>
-              <input onChange={this.ImageHandleClick} type="file" />
-              <button>Submit</button>
-            </form>
+        <div>
+          <div className="div-edit">
+            <>{this.renderInputEdit()}</>
+            <div className="div-ImageForm">
+              <form className="form-image" onSubmit={this.handleSubmit}>
+                <input onChange={this.ImageHandleClick} type="file" />
+                <button>Submit</button>
+              </form>
+            </div>
           </div>
-          <div>
+          <div className="div-buttons-edit">
+            <a href={`/EditMark/${this.state.data?.id}`}>
+              <button className="ta-button change-button" type="button">
+                Change Marks
+              </button>
+            </a>
+
             <button className="ta-button" onClick={this.handleClick}>
               Save
             </button>

@@ -1,28 +1,40 @@
 import React from "react";
-import TextFiled from "../components/TextFiled";
-import { geInputPropsForTextField } from "../components/utils";
+import { getInputPropsForTextField } from "../components/utils";
 import validator from "validator";
 import { AddData } from "../components/utils";
+import { getData } from "../components/utils";
 
 class AddStudentPage extends React.Component {
   state = {
     inputValues: {},
     errorTextValue: {},
+    studentID: null,
   };
 
   componentDidMount = async () => {
-    const newFill = Array(6).fill("");
     const KeysAndValues = {
       st_name: null,
       st_Email: null,
+      st_avg: 0,
       st_id: null,
       st_registerDate: null,
       st_register: null,
-      st_avg: null,
     }; //,st_image:null
     this.setState({
       inputValues: KeysAndValues,
     });
+
+    const [studentData, studentId, error] = await getData();
+
+    const ID = Number(
+      studentData
+        .slice(studentData.length - 1, studentData.length)
+        .map((val) => {
+          return val.attributes.st_id;
+        })
+    );
+
+    this.setState({ studentID: ID });
   };
 
   handleChange = (event, indexItem, key) => {
@@ -63,13 +75,18 @@ class AddStudentPage extends React.Component {
           errorMassage[key] = "wrong input";
         } else {
           errorMassage[key] = "";
-          event.target.value = event.target.value
-            .toLowerCase()
-            .replace("yes", "true");
-          event.target.value = event.target.value
-            .toLowerCase()
-            .replace("no", "false");
-          newValue[key] = event.target.value;
+          let valueInput;
+          if (event.target.value.toLowerCase() === "yes") {
+            valueInput = event.target.value
+              .toLowerCase()
+              .replace("yes", "true");
+          } else {
+            valueInput = event.target.value
+              .toLowerCase()
+              .replace("no", "false");
+          }
+          newValue[key] = valueInput;
+
           this.setState({ inputValues: newValue });
         }
       } else {
@@ -80,6 +97,9 @@ class AddStudentPage extends React.Component {
   };
 
   handleClick = async (event) => {
+    const studentValue = this.state.inputValues;
+    studentValue["st_id"] = Number(this.state.studentID) + 1;
+    this.setState({ inputValues: studentValue });
     AddData(event, this.state.inputValues);
   };
 
@@ -87,11 +107,12 @@ class AddStudentPage extends React.Component {
     let keysAndValueOFStudentData = [
       "st_name",
       "st_Email",
-      "st_id",
-      "st_avg",
+
       "st_registerDate",
       "st_register",
     ];
+    // "st_id",
+    // "st_avg",
     return keysAndValueOFStudentData.map((key: any, index) => {
       return (
         <div key={index} className="div-input-add">
@@ -103,17 +124,16 @@ class AddStudentPage extends React.Component {
             id={keysAndValueOFStudentData[index]}
             required
             type={
-              geInputPropsForTextField(keysAndValueOFStudentData[index])?.type
+              getInputPropsForTextField(keysAndValueOFStudentData[index])?.type
             }
             name={
-              geInputPropsForTextField(keysAndValueOFStudentData[index])?.name
+              getInputPropsForTextField(keysAndValueOFStudentData[index])?.name
             }
             onChange={(e) => this.handleChange(e, index, key)}
             placeholder={
-              geInputPropsForTextField(keysAndValueOFStudentData[index])
+              getInputPropsForTextField(keysAndValueOFStudentData[index])
                 ?.placeholder
             }
-            // value={row_data[index].display}
           />
           <div className="HelperText">{this.state?.errorTextValue[key]}</div>
         </div>

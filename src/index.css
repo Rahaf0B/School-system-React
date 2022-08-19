@@ -5,7 +5,7 @@ body {
   font-family: system-ui;
 }
 
-.App{
+.App {
   /* width: fit-content; */
 }
 /* body {
@@ -115,13 +115,15 @@ tbody td {
 
 .ta-button {
   margin-right: 5px;
-  width: 67px;
+  width: 70px;
   border-radius: 26px;
   border: none;
   height: 29px;
   background: wheat;
 }
-
+.change-button{
+  width: fit-content !important;
+}
 .site-header {
   width: 100%;
   background-color: #6a76aa;
@@ -145,11 +147,10 @@ tbody td {
 }
 
 @media (max-width: 884px) {
-.site-header{
-  width: 869px !important;
+  .site-header {
+    width: 869px !important;
+  }
 }
-}
-
 
 .SiteHeader-div {
   margin-right: 21px;
@@ -161,7 +162,7 @@ tbody td {
   float: right;
 }
 
-.img-school{
+.img-school {
   float: left;
   margin-left: 100px;
   width: 60px;
@@ -182,10 +183,13 @@ button {
 }
 
 .div-ImageForm {
-  width: fit-content;
+  /* width: fit-content; */
+  margin-bottom: 20px;
+  margin-right: 53px;
+}
+.edit-div-page {
   margin-bottom: 20px;
 }
-
 .div-edit {
   padding-left: 10px;
   gap: 20%;
@@ -197,7 +201,7 @@ button {
   /* align-content: flex-start; */
   justify-content: space-evenly;
   font-weight: 600;
-  padding-bottom: 71px;
+  padding-bottom: 15px;
   padding-top: 71px;
   color: wheat;
 }
@@ -218,7 +222,7 @@ button {
   margin-left: 50px;
   gap: 50px;
 }
-.div-buttons{
+.div-buttons {
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
@@ -231,7 +235,6 @@ button {
   border-radius: 20px;
   margin-right: 163px;
   margin-left: 163px;
-
 }
 
 .add-div-page {
@@ -251,7 +254,6 @@ button {
   width: 30%;
   /* width: 163px; */
   margin-right: 20px;
-
 }
 .div-input-edit {
   margin-bottom: 36px;
@@ -279,17 +281,89 @@ button {
   height: 35px !important;
 }
 
-
-.HelperText{
-color: rgb(166, 7, 7);
-font-size: 11px;
-margin-left: 3px;
+.HelperText {
+  color: rgb(166, 7, 7);
+  font-size: 11px;
+  margin-left: 3px;
 }
 
-
-.div-Paging-table{
+.div-Paging-table {
   width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+.div-buttons-edit {
+  display: flex;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+/* 
+.form-image{
+  width: 380px;
+} */
+
+.div-from-marks-page {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.div-from-marks{
+  width: 476px;
+  background-color: #55608f;
+  border-radius: 19px;
+}
+
+.form-marks {
+ 
+}
+
+.div-input-marks {
+  padding-top: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+}
+
+.div-input-mark {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: 600;
+  color: wheat;
+  margin-bottom: 20px;
+ 
+}
+
+.input-mark {
+  width: 200px;
+}
+
+.div-button-avg {
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  padding-bottom: 20px;
+}
+
+.mark-button,.mark-button-home-page {
+  width: fit-content;
+}
+
+.mark-heading {
+  padding-top: 30px;
+}
+
+.div-button-home-page{
+  width: fit-content;
+margin-left: auto;
+margin-right: auto;
+padding-bottom: 20px;
 }
