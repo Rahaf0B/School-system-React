@@ -40,7 +40,6 @@ class HomePage extends React.Component<any, any> {
     this.setState({ error: error });
     const lengthOfData = studentData.length;
     this.setState({ countOfData: lengthOfData });
-    console.log(studentData);
   }
 
   closeModal = () => {
@@ -136,23 +135,27 @@ class HomePage extends React.Component<any, any> {
           );
         });
         let colData;
+        const newFill1 = Array(7).fill("");
+        colData = newFill1;
         if (
           this.state.valueInputToSearch == "" ||
           this.state.valueInputToSearch == null ||
           data?.attributes?.st_name == this.state.valueInputToSearch
         ) {
           btn_hidden = true;
+          let count = 0;
           for (let i = 0; i < keys_att.length; i++) {
             if (keys_att[i] == "st_image") {
-              colData = data?.attributes[keys_att[i]].data?.attributes?.url;
+              count = count + 1;
+              colData[i] = data?.attributes[keys_att[i]].data?.attributes?.url;
               dialogIsHidden = true;
             } else {
               dialogIsHidden = false;
-              colData = data?.attributes[keys_att[i]];
+              colData[i] = data?.attributes[keys_att[i]];
             }
             row_data.push({
               key: keys_att[i],
-              display: colData,
+              display: colData[i],
               isHidden: dialogIsHidden,
             });
           }
