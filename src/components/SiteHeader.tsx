@@ -6,7 +6,9 @@ class SiteHeader extends React.Component {
     return (
       <div className="site-header">
         <div className="Header-div">
+        <a href={"/"}>
           <SchoolIcon />
+          </a>
           {/* <img className="img-school" src={} alt="school"></img> */}
           <div className="SiteHeader-div">
             <Link className="Link-to-Page" to="/">

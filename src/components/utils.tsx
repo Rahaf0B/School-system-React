@@ -31,11 +31,11 @@ export const getInputPropsForTextField = (name) => {
         placeholder: "ex:5",
       };
 
-    case "st_registerDate":
+    case "st_register_Date":
       return {
         disabled: false,
         type: "text",
-        name: name.split("_")[1].toUpperCase(),
+        name:"register Date",
         placeholder: "ex:YY-MM-DD",
       };
     case "st_register":

@@ -165,7 +165,7 @@ class HomePage extends React.Component<any, any> {
             {row_data.map((cl) => (
               <td key={cl.key}>
                 {cl.isHidden ? (
-                  <div>
+                  <div className="div-show-image">
                     <button
                       className="ta-button image"
                       onClick={this.openModal}
