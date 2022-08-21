@@ -19,7 +19,7 @@ class AddStudentPage extends React.Component {
       st_id: null,
       st_registerDate: null,
       st_register: null,
-    }; //,st_image:null
+    };
     this.setState({
       inputValues: KeysAndValues,
     });

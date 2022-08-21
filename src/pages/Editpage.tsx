@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { getSingleData } from "../components/utils";
 import TextFiled from "../components/TextFiled";
 import { UpdatedData } from "../components/utils";
@@ -30,7 +29,7 @@ class EditPage extends React.Component<any, any> {
       st_registerDate: null,
       st_register: null,
       st_avg: response.data.data.attributes.st_avg,
-    }; //,st_image:null
+    };
     this.setState({
       inputValues: KeysAndValues,
       data: response?.data?.data,

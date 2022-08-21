@@ -138,14 +138,14 @@ class HomePage extends React.Component<any, any> {
         const newFill1 = Array(7).fill("");
         colData = newFill1;
         if (
-          this.state.valueInputToSearch == "" ||
-          this.state.valueInputToSearch == null ||
-          data?.attributes?.st_name == this.state.valueInputToSearch
+          this.state.valueInputToSearch === "" ||
+          this.state.valueInputToSearch === null ||
+          data?.attributes?.st_name === this.state.valueInputToSearch
         ) {
           btn_hidden = true;
           let count = 0;
           for (let i = 0; i < keys_att.length; i++) {
-            if (keys_att[i] == "st_image") {
+            if (keys_att[i] === "st_image") {
               count = count + 1;
               colData[i] = data?.attributes[keys_att[i]].data?.attributes?.url;
               dialogIsHidden = true;
@@ -153,6 +153,7 @@ class HomePage extends React.Component<any, any> {
               dialogIsHidden = false;
               colData[i] = data?.attributes[keys_att[i]];
             }
+
             row_data.push({
               key: keys_att[i],
               display: colData[i],
@@ -184,6 +185,7 @@ class HomePage extends React.Component<any, any> {
                           <img
                             className="studend-img"
                             src={`http://localhost:1337${cl.display}`}
+                            alt="icone"
                           ></img>
                         </DialogContentText>
                       </DialogContent>

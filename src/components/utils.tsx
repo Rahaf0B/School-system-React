@@ -35,7 +35,7 @@ export const getInputPropsForTextField = (name) => {
       return {
         disabled: false,
         type: "text",
-        name:"register Date",
+        name: "register Date",
         placeholder: "ex:YY-MM-DD",
       };
     case "st_register":
@@ -84,6 +84,7 @@ export const getData = async () => {
     const data = await response.json();
     return [data.data, data.data[0].id, null];
   } catch (error) {
+    alert("there is an error occurred");
     return [null, null, error];
   }
 };

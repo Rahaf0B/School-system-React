@@ -5,17 +5,6 @@ body {
   font-family: system-ui;
 }
 
-.App {
-  /* width: fit-content; */
-}
-/* body {
-  height: 394px;
-  margin: 0;
-  background: -webkit-linear-gradient(45deg, #49a09d, #5f2c82);
-  background: linear-gradient(45deg, #49a09d, #5f2c82);
-  font-family: sans-serif;
-  font-weight: 100;
-}  */
 
 .container {
   margin-bottom: 15px;
@@ -42,7 +31,7 @@ td {
 }
 
 td {
-  padding-left:0;
+  padding-left: 0;
   padding-right: 0;
   font-weight: 500;
 }
@@ -119,10 +108,10 @@ tbody td {
   margin-right: auto;
 }
 
-.div-show-image{
+.div-show-image {
   width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .ta-button {
@@ -153,11 +142,6 @@ tbody td {
 
   max-width: 1390px;
 }
-@media (max-width: 774px) {
-  .SiteHeader-div {
-  }
-}
-
 
 .SiteHeader-div {
   margin-right: 21px;
@@ -326,9 +310,6 @@ button {
   width: 476px;
   background-color: #55608f;
   border-radius: 19px;
-}
-
-.form-marks {
 }
 
 .div-input-marks {

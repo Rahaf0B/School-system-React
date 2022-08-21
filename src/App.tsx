@@ -1,6 +1,5 @@
 import React from "react";
 import HomePage from "./pages/Homepage";
-import SearchClass from "./components/Searchbar";
 import EditPage from "./pages/Editpage";
 import AddStudentPage from "./pages/Addpage";
 import EditMarkPage from "./pages/EditMarks";
