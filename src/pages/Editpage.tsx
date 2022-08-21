@@ -27,7 +27,7 @@ class EditPage extends React.Component<any, any> {
       st_Email: null,
       st_id: response.data.data.attributes.st_id,
       st_registerDate: null,
-      st_register: null,
+      st_register: false,
       st_avg: response.data.data.attributes.st_avg,
     };
     this.setState({
@@ -43,9 +43,10 @@ class EditPage extends React.Component<any, any> {
   handleChange = (event, indexItem, key) => {
     const newValue = this.state.inputValues;
     newValue[key] = event.target.value;
+
     this.setState({ inputValues: newValue });
     const errorMassage = this.state.errorTextValue;
-    if (event.target.value === "") {
+    if (event.target.value === "" && key !== "st_register") {
       errorMassage[key] = "You should enter a value";
     } else {
       if (key === "st_Email") {
@@ -60,26 +61,13 @@ class EditPage extends React.Component<any, any> {
         } else {
           errorMassage[key] = "";
         }
-      } else if (key === "st_register") {
-        if (
-          event.target.value.toLowerCase() !== "yes" &&
-          event.target.value.toLowerCase() !== "no"
-        ) {
-          errorMassage[key] = "wrong input";
-        } else {
-          errorMassage[key] = "";
-          event.target.value = event.target.value
-            .toLowerCase()
-            .replace("yes", "true");
-          event.target.value = event.target.value
-            .toLowerCase()
-            .replace("no", "false");
-          newValue[key] = event.target.value;
-          this.setState({ inputValues: newValue });
-        }
       } else {
         errorMassage[key] = "";
       }
+    }
+    if (key === "st_register") {
+      newValue[key] = event.target.checked;
+      this.setState({ inputValues: newValue });
     }
     this.setState({ errorTextValue: errorMassage });
   };

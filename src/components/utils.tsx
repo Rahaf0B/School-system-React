@@ -31,7 +31,7 @@ export const getInputPropsForTextField = (name) => {
         placeholder: "ex:5",
       };
 
-    case "st_register_Date":
+    case "st_registerDate":
       return {
         disabled: false,
         type: "text",
@@ -41,7 +41,7 @@ export const getInputPropsForTextField = (name) => {
     case "st_register":
       return {
         disabled: false,
-        type: "text",
+        type: "checkbox",
         name: name.split("_")[1].toUpperCase(),
         placeholder: "ex:yes/no",
       };

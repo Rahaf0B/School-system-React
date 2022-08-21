@@ -18,7 +18,7 @@ class AddStudentPage extends React.Component {
       st_avg: 0,
       st_id: null,
       st_registerDate: null,
-      st_register: null,
+      st_register: false,
     };
     this.setState({
       inputValues: KeysAndValues,
@@ -43,7 +43,7 @@ class AddStudentPage extends React.Component {
     newValue[key] = event.target.value;
     this.setState({ inputValues: newValue });
     const errorMassage = this.state.errorTextValue;
-    if (event.target.value === "") {
+    if (event.target.value === "" && key !== "st_register") {
       errorMassage[key] = "You should enter a value";
     } else {
       if (key === "st_name") {
@@ -67,32 +67,16 @@ class AddStudentPage extends React.Component {
         } else {
           errorMassage[key] = "";
         }
-      } else if (key === "st_register") {
-        if (
-          event.target.value.toLowerCase() !== "yes" &&
-          event.target.value.toLowerCase() !== "no"
-        ) {
-          errorMassage[key] = "wrong input";
-        } else {
-          errorMassage[key] = "";
-          let valueInput;
-          if (event.target.value.toLowerCase() === "yes") {
-            valueInput = event.target.value
-              .toLowerCase()
-              .replace("yes", "true");
-          } else {
-            valueInput = event.target.value
-              .toLowerCase()
-              .replace("no", "false");
-          }
-          newValue[key] = valueInput;
-
-          this.setState({ inputValues: newValue });
-        }
       } else {
         errorMassage[key] = "";
       }
     }
+
+    if (key === "st_register") {
+      newValue[key] = event.target.checked;
+      this.setState({ inputValues: newValue });
+    }
+
     this.setState({ errorTextValue: errorMassage });
   };
 

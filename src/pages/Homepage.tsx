@@ -197,7 +197,23 @@ class HomePage extends React.Component<any, any> {
                     </Dialog>
                   </div>
                 ) : (
-                  <div>{cl.display?.toString()}</div>
+                  <div>
+                    {" "}
+                    {cl.key === "st_register" ? (
+                      <div className="checkbox-div">
+                        {" "}
+                        <input
+                          className="checkbox-table"
+                          type="checkbox"
+                          name="checkbox-checked"
+                          checked={/true/.test(cl.display)}
+                          readOnly
+                        />
+                      </div>
+                    ) : (
+                      <div>{cl.display?.toString()}</div>
+                    )}
+                  </div>
                 )}
               </td>
             ))}
