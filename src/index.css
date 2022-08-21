@@ -121,7 +121,7 @@ tbody td {
   height: 29px;
   background: wheat;
 }
-.change-button{
+.change-button {
   width: fit-content !important;
 }
 .site-header {
@@ -315,14 +315,13 @@ button {
   margin-right: auto;
 }
 
-.div-from-marks{
+.div-from-marks {
   width: 476px;
   background-color: #55608f;
   border-radius: 19px;
 }
 
 .form-marks {
- 
 }
 
 .div-input-marks {
@@ -339,7 +338,6 @@ button {
   font-weight: 600;
   color: wheat;
   margin-bottom: 20px;
- 
 }
 
 .input-mark {
@@ -353,7 +351,8 @@ button {
   padding-bottom: 20px;
 }
 
-.mark-button,.mark-button-home-page {
+.mark-button,
+.mark-button-home-page {
   width: fit-content;
 }
 
@@ -361,9 +360,9 @@ button {
   padding-top: 30px;
 }
 
-.div-button-home-page{
+.div-button-home-page {
   width: fit-content;
-margin-left: auto;
-margin-right: auto;
-padding-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 20px;
 }

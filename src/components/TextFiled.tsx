@@ -7,7 +7,7 @@ export type variablesProps = {
   indexValue: any;
   dataValue: any;
   handlerEvent: any;
-  valueOfError:any;
+  valueOfError: any;
 };
 class TextFiled extends React.Component<variablesProps> {
   render() {
@@ -16,7 +16,7 @@ class TextFiled extends React.Component<variablesProps> {
     const { indexValue } = this.props;
     const { handlerEvent } = this.props;
     const { dataValue } = this.props;
-    const {valueOfError}=this.props;
+    const { valueOfError } = this.props;
     return (
       <div>
         <label htmlFor={keyData}>
@@ -34,9 +34,7 @@ class TextFiled extends React.Component<variablesProps> {
           value={dataValue}
           placeholder={getInputPropsForTextField(valueKey)?.placeholder}
         />
-        <div className="HelperText">
-          {valueOfError}
-        </div>
+        <div className="HelperText">{valueOfError}</div>
       </div>
     );
   }

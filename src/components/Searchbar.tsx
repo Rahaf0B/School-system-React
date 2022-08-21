@@ -1,44 +1,43 @@
 import React from "react";
 class SearchBar extends React.Component<any, any> {
-    constructor(props:any) {
-        super(props);
-        this.reset();
-      }
-      reset() {
-        this.state = {
-          inputValue: ''
-        };
-      }
-    render() {
-        return (
-            <div className="container" >
-            <div className="b-search">
-            <h4 className="h4-input">Search the table by using student name:</h4>
-            <input
+  constructor(props: any) {
+    super(props);
+    this.reset();
+  }
+  reset() {
+    this.state = {
+      inputValue: "",
+    };
+  }
+  render() {
+    return (
+      <div className="container">
+        <div className="b-search">
+          <h4 className="h4-input">Search the table by using student name:</h4>
+          <input
             value={this.state.inputValue}
-              id="input-search"
-              type="text"
-              placeholder="Search here"
-              onKeyUp={this.handleKey.bind(this)}
-              onChange={evt => this.updateInputValue(evt)}
-            ></input>
-          </div>
-          </div>
-        );
+            id="input-search"
+            type="text"
+            placeholder="Search here"
+            onKeyUp={this.handleKey.bind(this)}
+            onChange={(evt) => this.updateInputValue(evt)}
+          ></input>
+        </div>
+      </div>
+    );
+  }
+  handleKey(e: any) {
+    if (e.key === "Enter") {
+      this.props.sendData(this.state.inputValue);
     }
-    handleKey(e:any) {
-        if (e.key === "Enter") {
-          this.props.sendData(this.state.inputValue)
-        }
-      }
-    updateInputValue=(evt:any)=> {
-      const value = evt.target.value;
-  
-      this.setState({
-        inputValue: value
-      });
-    }
-}
+  }
+  updateInputValue = (evt: any) => {
+    const value = evt.target.value;
 
+    this.setState({
+      inputValue: value,
+    });
+  };
+}
 
 export default SearchBar;

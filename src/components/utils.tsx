@@ -127,11 +127,12 @@ export const getSingleData = async (ID) => {
   }
 };
 
-export const UpdatedData = async ( inputValue, ID) => {
+export const UpdatedData = async (inputValue, ID) => {
   if (Object.values(inputValue).includes(null)) {
     alert("You must fill all the fields");
   } else {
     const data = { data: inputValue };
+
     fetch(`http://localhost:1337/api/students/${ID}`, {
       method: "put", // or 'PUT'
       headers: {
@@ -153,7 +154,6 @@ export const UpdatedData = async ( inputValue, ID) => {
 };
 
 export const AddData = async (event, inputValues) => {
-
   if (Object.values(inputValues).includes(null)) {
     alert("You must fill all the fields");
   } else {
@@ -171,17 +171,54 @@ export const AddData = async (event, inputValues) => {
       .then((res) => res.json())
       .then((data) => "")
       .catch((error) => alert("there is an error occurred"));
+    alert("The Data has been added");
   }
-  alert("The Data has been added");
 };
 
+export const calculateMarksAverage = (Marks) => {
+  let value = 0;
+  Object.values(Marks).map((val: number) => {
+    value = Number(val) + value;
+  });
+  const average = value / Object.keys(Marks).length;
+  return average;
+};
 
+export const updateImage = (imageDataToUpdate, ID) => {
+  const imageData = imageDataToUpdate;
+  let imageUpdate = { data: { st_image: imageData } };
 
-export const calculateMarksAverage =(Marks)=>{
-  let value=0;
-  Object.values(Marks).map((val:number) => {
-        value=Number(val)+value;
+  fetch(`http://localhost:1337/api/students/${ID}?populate=*`, {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(imageUpdate),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      ("");
+    })
+    .catch((error) => {
+      alert("there is an error occurred");
     });
-    const average=value/Object.keys(Marks).length
-    return average;
-}
+};
+
+export const UploadImage = async (file) => {
+  const data = new FormData();
+  data.append("files", file);
+  const upload_res = await axios({
+    method: "POST",
+    url: "http://localhost:1337/api/upload/",
+    data,
+  });
+  const importedImageData = upload_res.data;
+  const idStudent = importedImageData[0].id;
+  delete importedImageData[0].id;
+  const imageAttributes = Object.assign({}, importedImageData);
+  imageAttributes["attributes"] = imageAttributes[0];
+  delete imageAttributes[0];
+  imageAttributes["id"] = idStudent;
+
+  return imageAttributes;
+};

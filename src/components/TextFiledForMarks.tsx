@@ -16,8 +16,8 @@ class TextFiledForMarks extends React.Component<variablesProps> {
         <label htmlFor={getInputPropsForTextField(name)?.id}>
           {getInputPropsForTextField(name)?.name}
         </label>
-        <input 
-        className="input-mark"
+        <input
+          className="input-mark"
           id={getInputPropsForTextField(name)?.id}
           placeholder={getInputPropsForTextField(name)?.name}
           onChange={(e) => handlerEvent(e, name)}

@@ -40,6 +40,7 @@ class HomePage extends React.Component<any, any> {
     this.setState({ error: error });
     const lengthOfData = studentData.length;
     this.setState({ countOfData: lengthOfData });
+    console.log(studentData);
   }
 
   closeModal = () => {

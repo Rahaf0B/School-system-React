@@ -4,7 +4,8 @@ import { getSingleData } from "../components/utils";
 import TextFiled from "../components/TextFiled";
 import { UpdatedData } from "../components/utils";
 import validator from "validator";
-
+import { updateImage } from "../components/utils";
+import { UploadImage } from "../components/utils";
 class EditPage extends React.Component<any, any> {
   state = {
     data: null,
@@ -90,49 +91,18 @@ class EditPage extends React.Component<any, any> {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData();
-    data.append("files", this.state.file);
-    const upload_res = await axios({
-      method: "POST",
-      url: "http://localhost:1337/api/upload/",
-      data,
+    const imageAttributes = UploadImage(this.state?.file);
+    imageAttributes.then((res) => {
+      this.setState({ imageUpdate: res });
     });
-    const importedImageData = upload_res.data;
-    const idStudent = importedImageData[0].id;
-    delete importedImageData[0].id;
-    const imageAttributes = Object.assign({}, importedImageData);
-    imageAttributes["attributes"] = imageAttributes[0];
-    delete imageAttributes[0];
-    imageAttributes["id"] = idStudent;
-    this.setState({ imageUpdate: imageAttributes });
   };
-
-  updateImage() {
-    const imageData = this.state.imageUpdate;
-    let imageUpdate = { data: imageData };
-    fetch(
-      `http://localhost:1337/api/students/${this.state?.stu_id}?populate=*`,
-      {
-        method: "put",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(imageUpdate),
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        ("");
-      })
-      .catch((error) => {
-        this.setState({ error: error });
-      });
-  }
 
   handleClick = async (event) => {
     event.preventDefault();
     UpdatedData(this.state.inputValues, this.state.stu_id);
-    // this.updateImage();
+    if (this.state.imageUpdate !== null) {
+      updateImage(this.state?.imageUpdate, this.state?.stu_id);
+    }
   };
 
   renderInputEdit() {

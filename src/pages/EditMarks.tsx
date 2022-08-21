@@ -10,7 +10,11 @@ class EditMarkPage extends React.Component {
   };
 
   componentDidMount = async () => {
-    const inputName = { "First Mark": "", "Second Mark": "", "Third Mark": "" };
+    const inputName = {
+      "First Mark": null,
+      "Second Mark": null,
+      "Third Mark": null,
+    };
     this.setState({ textInput: inputName });
     const linkId = window?.location?.href.split("/");
     this.setState({
@@ -25,7 +29,6 @@ class EditMarkPage extends React.Component {
     const studentMarksAverage = {
       st_avg: average,
     };
-
     UpdatedData(studentMarksAverage, this.state.stu_id);
   };
 
@@ -44,28 +47,24 @@ class EditMarkPage extends React.Component {
     return (
       <div className="div-from-marks-page">
         <div className="div-from-marks">
-        <form className="form-marks" onSubmit={this.handleSubmit}>
-          <h3 className="div-heading mark-heading">Edit the student marks</h3>
-          <div className="div-input-marks">{this.renderInputMarks()}</div>
+          <form className="form-marks" onSubmit={this.handleSubmit}>
+            <h3 className="div-heading mark-heading">Edit the student marks</h3>
+            <div className="div-input-marks">{this.renderInputMarks()}</div>
 
-          <div className="div-button-avg">
-         
-            <button className="ta-button mark-button">
-              Update Marks and the Average
-            </button>
-           
-          </div>
-         
-        </form>
-        <div className="div-button-home-page">
-        <a href={"/"}>
-            <button className="ta-button mark-button-home-page">
+            <div className="div-button-avg">
+              <button className="ta-button mark-button">
+                Update Marks and the Average
+              </button>
+            </div>
+          </form>
+          <div className="div-button-home-page">
+            <a href={"/"}>
+              <button className="ta-button mark-button-home-page">
                 Back to Home PAGE
-            </button>
-
+              </button>
             </a>
-            </div>
-            </div>
+          </div>
+        </div>
       </div>
     );
   }
