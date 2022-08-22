@@ -181,8 +181,8 @@ export const calculateMarksAverage = (Marks) => {
   Object.values(Marks).map((val: number) => {
     value = Number(val) + value;
   });
-  const average =( value / Object.keys(Marks).length).toFixed(1);;
-  
+  const average = (value / Object.keys(Marks).length).toFixed(1);
+
   return average;
 };
 

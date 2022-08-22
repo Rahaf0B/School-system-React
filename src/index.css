@@ -11,7 +11,6 @@ body {
   margin-left: auto;
   margin-right: auto;
   max-width: 1390px;
-  /* width: fit-content; */
 }
 table {
   margin-bottom: 27px;
@@ -130,15 +129,11 @@ tbody td {
   margin-bottom: 60px;
 }
 .Header-div {
-  /* display: flex;
-  justify-content: space-around; */
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-
   height: 65px;
   align-items: center;
-
   max-width: 1390px;
 }
 
@@ -173,7 +168,6 @@ button {
 }
 
 .div-ImageForm {
-  /* width: fit-content; */
   margin-bottom: 20px;
   margin-right: 53px;
 }
@@ -188,7 +182,6 @@ button {
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  /* align-content: flex-start; */
   justify-content: space-evenly;
   font-weight: 600;
   padding-bottom: 15px;
@@ -201,13 +194,11 @@ button {
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  /* align-content: flex-start; */
   justify-content: center;
   font-weight: 600;
   padding-bottom: 71px;
   padding-top: 71px;
   color: wheat;
-
   margin-right: 50px;
   margin-left: 50px;
   gap: 50px;
@@ -242,7 +233,6 @@ button {
 .div-input-add,
 .div-input-edit {
   width: 30%;
-  /* width: 163px; */
   margin-right: 20px;
 }
 .div-input-edit {
@@ -254,7 +244,6 @@ button {
   width: 100%;
   border-radius: 10px;
   height: 27px;
-  /* width: 249px; */
   outline: 0;
 }
 
@@ -294,11 +283,6 @@ button {
   justify-content: center;
   padding-bottom: 20px;
 }
-
-/* 
-.form-image{
-  width: 380px;
-} */
 
 .div-from-marks-page {
   width: fit-content;

@@ -91,12 +91,10 @@ class AddStudentPage extends React.Component {
     let keysAndValueOFStudentData = [
       "st_name",
       "st_Email",
-
       "st_registerDate",
       "st_register",
     ];
-    // "st_id",
-    // "st_avg",
+ 
     return keysAndValueOFStudentData.map((key: any, index) => {
       return (
         <div key={index} className="div-input-add">

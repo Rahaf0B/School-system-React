@@ -13,7 +13,7 @@ class SearchBar extends React.Component<any, any> {
     return (
       <div className="container">
         <div className="b-search">
-          <h4 className="h4-input">Search the table by using student name:</h4>
+          <h4 className="h4-input">Search The Table By Using Student ID:</h4>
           <input
             value={this.state.inputValue}
             id="input-search"

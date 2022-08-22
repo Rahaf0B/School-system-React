@@ -144,10 +144,12 @@ class HomePage extends React.Component<any, any> {
         let colData;
         const newFill1 = Array(7).fill("");
         colData = newFill1;
+
         if (
           this.state.valueInputToSearch === "" ||
           this.state.valueInputToSearch === null ||
-          data?.attributes?.st_name === this.state.valueInputToSearch
+          Number(data?.attributes?.st_id) ===
+            Number(this.state.valueInputToSearch)
         ) {
           btn_hidden = true;
           let count = 0;
