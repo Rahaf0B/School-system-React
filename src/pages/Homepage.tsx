@@ -68,10 +68,17 @@ class HomePage extends React.Component<any, any> {
           f !== "localizations"
         );
       });
+      let headingData;
+
       for (let i = 0; i < keys_att.length; i++) {
+        if (keys_att[i] === "st_registerDate") {
+          headingData = "REGISTER DATE";
+        } else {
+          headingData = keys_att[i].split("_")[1].toUpperCase();
+        }
         column.push({
           key: keys_att[i],
-          display: keys_att[i].split("_")[1].toUpperCase(),
+          display: headingData,
           isHidden: true,
         });
       }
@@ -83,7 +90,7 @@ class HomePage extends React.Component<any, any> {
               {cl.display}
             </th>
           ))}
-          <th>Action</th>
+          <th>OPTIONS</th>
         </tr>
       );
     });
