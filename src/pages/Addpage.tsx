@@ -94,8 +94,11 @@ class AddStudentPage extends React.Component {
       "st_registerDate",
       "st_register",
     ];
- 
+
     return keysAndValueOFStudentData.map((key: any, index) => {
+      const { type, name, placeholder } = getInputPropsForTextField(
+        keysAndValueOFStudentData[index]
+      );
       return (
         <div key={index} className="div-input-add">
           <label htmlFor={keysAndValueOFStudentData[index]}>
@@ -105,17 +108,10 @@ class AddStudentPage extends React.Component {
             className="input-add"
             id={keysAndValueOFStudentData[index]}
             required
-            type={
-              getInputPropsForTextField(keysAndValueOFStudentData[index])?.type
-            }
-            name={
-              getInputPropsForTextField(keysAndValueOFStudentData[index])?.name
-            }
+            type={type}
+            name={name}
             onChange={(e) => this.handleChange(e, index, key)}
-            placeholder={
-              getInputPropsForTextField(keysAndValueOFStudentData[index])
-                ?.placeholder
-            }
+            placeholder={placeholder}
           />
           <div className="HelperText">{this.state?.errorTextValue[key]}</div>
         </div>

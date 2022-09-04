@@ -105,9 +105,6 @@ class EditPage extends React.Component<any, any> {
           key !== "localizations" &&
           key !== "st_avg"
         );
-      })
-      .map(([key, val], index) => {
-        return [key, val];
       });
     return InputValue.map(([key, val], index) => {
       return (
